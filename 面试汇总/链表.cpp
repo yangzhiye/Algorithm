@@ -297,6 +297,30 @@ ListNode*  getFirstNodeInCircle(ListNode* head){
 	return n1;
 }
 
+//12.给出一单链表头指针和一节点指针，o(1)删除该节点
+void Delete(ListNode* head,ListNode* todeleted){
+	if(todeleted==NULL)
+		return;
+	if(todeleted->next!=NULL){
+		todeleted->data = todeleted->next->data;
+		ListNode* temp = todeleted->next;
+		todeleted->next = todeleted->next->next;
+		delete temp;
+	}else{
+		if(head==todeleted){
+			head = NULL;
+			delete todeleted;
+		}else{
+			ListNode* n = head;
+			while (n->next!=todeleted) {
+				n = n->next;
+			}
+			n->next = NULL;
+			delete todeleted;
+		}
+	}
+}
+
 
 int main(int argc, char *argv[]) {
 
