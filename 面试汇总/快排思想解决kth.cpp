@@ -115,7 +115,7 @@ int find_k_max2(int* a,int num,int k){
 	int i = 0;
 	int j = num-1;
 	int x = -0xff;
-	if(i<j){
+	if(i<=j){
 		x = a[0];
 		while(i<j){
 			while(i<j&&a[j]>x) --j;
@@ -123,10 +123,10 @@ int find_k_max2(int* a,int num,int k){
 			swap(a[i],a[j]);
 		}
 		a[i] = x;
-		if(num-i == x)
+		if(num-i == k)
 			return x;
 		else if(num-i < k)
-			return find_k_max2(a,i-1,k);
+			return find_k_max2(a,i,k-(num-i));
 		else
 			return find_k_max2(a+i+1,num-i-1,k);
 	}
@@ -138,6 +138,6 @@ int main(){
 	//my_qsort(a, 0, 9);
 	//my_qsort2(a,0,9);
 	//print(a,10);
-	cout<<find_k_max(a,10,4);
+	cout<<find_k_max2(a,10,7);
 	return 0;
 }
