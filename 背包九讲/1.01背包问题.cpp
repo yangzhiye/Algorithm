@@ -4,6 +4,7 @@
 #include<math.h>
 #define MAXN 100
 #define MAXV 100
+#define MINN -10000000
 using namespace std;
 //　０１背包问题
 //　　dp[i,v] = max(dp[i-1,v],dp[i-1,v-vi]+wi)
@@ -43,14 +44,32 @@ void zeroOnePick2(int N,int V,vector<pair<int,int> > VP){
 			if(v-VP[i].first>=0)
 				dp[v] = max(dp[v],dp[v-VP[i].first]+VP[i].second);
 		}
+		for(int i = 1 ; i <= V ; ++i)
+			cout<<dp[i]<<" ";
+		cout<<endl;
 	}
 	cout<<"2.  "<<dp[V]<<endl;
-	for(int i = 1 ; i <= V ; ++i)
-		cout<<dp[i]<<" ";
-	cout<<endl;
 }
 
 //有的题目要求”恰好装满背包“。只需dp[0]=0,dp[1...v]=负无穷
+void zeroOnePick3(int N,int V,vector<pair<int,int> > VP){
+	int dp[MAXV];
+	dp[0] = 0;
+	for(int i = 1 ; i < MAXV ; ++i)
+		dp[i] = MINN;
+	for(int i = 1 ; i <=N ;++i){
+		for(int v = V ; v >0 ; v--){
+			if(v-VP[i].first>=0)
+				dp[v] = max(dp[v],dp[v-VP[i].first]+VP[i].second);
+		}
+		for(int i = 1 ; i<=V ;++i)
+			cout<<dp[i]<<" ";
+		cout<<endl;
+	}
+	cout<<"3.  "<<dp[V]<<endl;
+
+}
+
 int main(){
 	int n = 5;
 	int v = 10;
@@ -64,5 +83,6 @@ int main(){
 	VP.push_back(make_pair(6,9));
 	zeroOnePick(n,v,VP);
 	zeroOnePick2(n,v,VP);
+	zeroOnePick3(n,v,VP);
 	return 0;
 }
